@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "utilisateur") // <-- AJOUTEZ CETTE LIGNE ICI
+@Table(name = "utilisateur")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,4 +31,5 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 20)
     private Role role;
+
 }
