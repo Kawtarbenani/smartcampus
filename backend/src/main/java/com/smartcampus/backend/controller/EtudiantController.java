@@ -1,0 +1,17 @@
+package com.smartcampus.backend.controller;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/etudiant")
+@PreAuthorize("hasRole('ETUDIANT')")
+public class EtudiantController {
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "Bienvenue Etudiant";
+    }
+}
