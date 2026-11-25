@@ -70,7 +70,7 @@ export default function Formations() {
   };
 
   return (
-    <Container sx={{ mt: 4 }}>
+    <Container sx={{ mt: 4, mb: 4, bgcolor: '#ffffff', color: '#000000', p: 4, borderRadius: 2, boxShadow: 3 }}>
       <Typography variant="h4" gutterBottom>Gestion des Formations</Typography>
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
