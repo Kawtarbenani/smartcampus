@@ -3,7 +3,8 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8081/api/admin';
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const token = user.token || localStorage.getItem('token');
   return { headers: { Authorization: `Bearer ${token}` } };
 };
 
