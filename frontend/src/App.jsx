@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Formations from './pages/Formations';
 import Etudiants from './pages/Etudiants';
+import Enseignants from './pages/Enseignants';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         {/* Redirection automatique de la racine / vers /login */}
         <Route path="/admin/formations" element={<Formations />} />
         <Route path="/admin/etudiants" element={<Etudiants />} />
+        <Route path="/admin/enseignants" element={<Enseignants />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
