@@ -12,8 +12,17 @@ export const enseignantService = {
   getAll: () => axios.get(`${API_URL}/enseignants`, getAuthHeaders()).then(r => r.data),
   create: (data) => axios.post(`${API_URL}/enseignants`, data, getAuthHeaders()).then(r => r.data),
   remove: (id) => axios.delete(`${API_URL}/enseignants/${id}`, getAuthHeaders()),
-
+  
   getAffectations: () => axios.get(`${API_URL}/affectations`, getAuthHeaders()).then(r => r.data),
   affecterModule: (data) => axios.post(`${API_URL}/affectations`, data, getAuthHeaders()).then(r => r.data),
   removeAffectation: (id) => axios.delete(`${API_URL}/affectations/${id}`, getAuthHeaders()),
+  
+  getMesModules: () => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const token = user.token || localStorage.getItem('token');
+    return axios.get('http://localhost:8081/api/enseignant/modules', {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(r => r.data);
+  },
 };
+  
