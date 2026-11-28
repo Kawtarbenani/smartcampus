@@ -19,8 +19,10 @@ public class EtudiantAdminController {
     private final EtudiantService etudiantService;
 
     @GetMapping
-    public List<EtudiantResponse> getAll() {
-        return etudiantService.getAllEtudiants();
+    public List<EtudiantResponse> getAll(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Long filiereId) {
+        return etudiantService.searchEtudiants(search, filiereId);
     }
 
     @PostMapping

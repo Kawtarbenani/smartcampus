@@ -9,8 +9,14 @@ const getAuthHeaders = () => {
 };
 
 export const etudiantService = {
-  getAll: () => axios.get(API_URL, getAuthHeaders()).then(r => r.data),
-  create: (data) => axios.post(API_URL, data, getAuthHeaders()).then(r => r.data),
+  getAll: (search = '', filiereId = '') =>
+    axios.get(API_URL, {
+      ...getAuthHeaders(),
+      params: {
+        search: search || undefined,
+        filiereId: filiereId || undefined,
+      },
+    }).then(r => r.data),  create: (data) => axios.post(API_URL, data, getAuthHeaders()).then(r => r.data),
   update: (id, data) => axios.put(`${API_URL}/${id}`, data, getAuthHeaders()).then(r => r.data),
   remove: (id) => axios.delete(`${API_URL}/${id}`, getAuthHeaders()),
 };
