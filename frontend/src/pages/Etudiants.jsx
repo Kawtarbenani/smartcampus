@@ -17,12 +17,13 @@ export default function Etudiants() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [search, setSearch] = useState('');
+  const [filiereFilter, setFiliereFilter] = useState('');
   const [error, setError] = useState('');
 
-  const loadData = async () => {
+  const loadData = async (searchVal = search, filiereVal = filiereFilter) => {
     try {
       const [etus, fils] = await Promise.all([
-        etudiantService.getAll(),
+        etudiantService.getAll(searchVal, filiereVal),
         formationService.getFilieres()
       ]);
       setEtudiants(etus);
@@ -32,7 +33,7 @@ export default function Etudiants() {
     }
   };
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => { loadData(search, filiereFilter); }, [search, filiereFilter]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -107,13 +108,36 @@ export default function Etudiants() {
         )}
       </Box>
 
-      <TextField
-        label="Rechercher par nom ou matricule..."
-        fullWidth
-        sx={{ mb: 2 }}
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-      />
+      <Box sx={{ display: 'flex', gap: 2, mb: 2, alignItems: 'center' }}>
+        <TextField
+          label="Rechercher par nom, prénom, matricule ou filière..."
+          fullWidth
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        <TextField
+          select
+          label="Filtrer par filière"
+          sx={{ minWidth: 200 }}
+          value={filiereFilter}
+          onChange={e => setFiliereFilter(e.target.value)}
+        >
+          <MenuItem value="">Toutes les filières</MenuItem>
+          {filieres.map(f => (
+            <MenuItem key={f.id} value={f.id}>{f.code} - {f.nom}</MenuItem>
+          ))}
+        </TextField>
+        <Button
+          variant="outlined"
+          onClick={() => { setSearch(''); setFiliereFilter(''); }}
+        >
+          Réinitialiser
+        </Button>
+      </Box>
+
+      <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary' }}>
+        {etudiants.length} étudiant(s) trouvé(s)
+      </Typography>
 
       <Table>
         <TableHead>
@@ -123,7 +147,7 @@ export default function Etudiants() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filtered.map(e => (
+          {etudiants.map(e => (
             <TableRow key={e.id}>
               <TableCell>{e.matricule}</TableCell><TableCell>{e.nom}</TableCell><TableCell>{e.prenom}</TableCell>
               <TableCell>{e.email}</TableCell><TableCell>{e.annee}A</TableCell><TableCell>{e.filiereCode || '-'}</TableCell>
