@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Formations from './pages/Formations';
 import Etudiants from './pages/Etudiants';
 import Enseignants from './pages/Enseignants';
+import EnseignantDashboard from './pages/EnseignantDashboard';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/admin/formations" element={<Formations />} />
         <Route path="/admin/etudiants" element={<Etudiants />} />
         <Route path="/admin/enseignants" element={<Enseignants />} />
+        <Route path="/enseignant/dashboard" element={<EnseignantDashboard />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

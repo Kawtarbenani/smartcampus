@@ -120,4 +120,23 @@ public class EnseignantService {
                 .anneeUniversitaire(a.getAnneeUniversitaire())
                 .build();
     }
+
+    public List<EnseignantModuleResponse> getMesModules(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable"));
+
+        return affectationRepository.findByEnseignantId(user.getId()).stream()
+                .map(a -> EnseignantModuleResponse.builder()
+                        .moduleId(a.getModule().getId())
+                        .code(a.getModule().getCode())
+                        .nom(a.getModule().getNom())
+                        .credits(a.getModule().getCredits())
+                        .volumeHoraire(a.getModule().getVolumeHoraire())
+                        .filiereCode(a.getModule().getFiliere().getCode())
+                        .filiereNom(a.getModule().getFiliere().getNom())
+                        .semestreCode(a.getModule().getSemestre().getCode())
+                        .anneeUniversitaire(a.getAnneeUniversitaire())
+                        .build())
+                .toList();
+    }
 }
