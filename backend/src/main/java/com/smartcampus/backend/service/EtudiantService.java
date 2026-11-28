@@ -111,4 +111,10 @@ public class EtudiantService {
                 .filiereNom(e.getFiliere() != null ? e.getFiliere().getNom() : null)
                 .build();
     }
+
+    public List<EtudiantResponse> searchEtudiants(String search, Long filiereId) {
+        return etudiantRepository.searchEtudiants(search, filiereId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
 }
